@@ -9,9 +9,7 @@
 <script lang="ts" setup>
 import MailList from '../components/SubscriptionList.vue'
 import {useRouter} from "vue-router";
-
 const router = useRouter()
-
 function routeToAddSubscriptions() {
   router.push({name: 'AddSubscription'})
 }

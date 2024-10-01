@@ -20,7 +20,6 @@
             <q-input outlined id="name" v-model="product.name" v-bind="field" label="Product name" />
           </Field>
           <error-message name="name"/>
-
           <Field name="description" type="text" v-slot="{field}">
             <q-input outlined id="description"  v-model="product.description" v-bind="field" label="Product Description" />
           </Field>
@@ -42,13 +41,12 @@
       </Form>
     </q-card>
   </q-page>
-
 </template>
 
 <script lang="ts" setup>
 import {computed, onMounted, reactive, ref} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
-import api, {Product} from "@/common/api"
+import api, {APIResponse, Product} from "@/common/api"
 import { Notify } from 'quasar'
 import { Form, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
@@ -77,7 +75,7 @@ const submitForm =  () => {
     schema.validateSync(product)
     console.log(schema.isValid(product).then())
     console.log('submit!', slug, product)
-    let responsePromise
+    let responsePromise:Promise<APIResponse<Product>>
     if (!slug.value) {
       responsePromise = api.products.add(product)
     } else {

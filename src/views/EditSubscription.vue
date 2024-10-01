@@ -46,20 +46,15 @@ import { Form, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
 const router = useRouter()
 
-
 const subscription = reactive<Subscription>({
   email: '',
   description: '',
-
 })
 
 const schema = yup.object().shape({
   email: yup.string().required().email().min(3).max(255),
   description: yup.string().max(255),
 });
-
-
-
 
 const submitForm =  () => {
   try {
@@ -81,7 +76,6 @@ const submitForm =  () => {
         })
       }
     })
-
     router.push({name: 'Subscriptions'})
   } catch (error) {
     console.log("error",error);
@@ -91,8 +85,5 @@ const submitForm =  () => {
       position: 'top'
     })
   }
-
 }
-
-
 </script>

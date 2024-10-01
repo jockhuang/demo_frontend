@@ -53,6 +53,7 @@ export interface Product {
     imageURL?: string
     createDate?: string
     updateDate?: string
+    reviews?: ProductReview[]
 }
 export interface Statistic{
     releasedProduct: number
@@ -83,6 +84,15 @@ export interface QueryResult<T> {
     pageSize: number
 }
 
+export interface ProductReview {
+    id: string
+    productId: number
+    rating: number
+    author: string
+    comment: string
+    createdAt?: string
+}
+
 const products = {
     list: (data: QueryConfig) => request.get<APIResponse<QueryResult<Product>>>('/product/products', {params:data}),
     details: (id: string) => request.get<APIResponse<Product>>(`/product/${id}`),
@@ -101,9 +111,15 @@ const statistic = {
     data: () => request.get<APIResponse<Statistic>>(`/statistic`),
 };
 
+const productReview = {
+    reviews: (id: string) => request.get<APIResponse<ProductReview[]>>(`/product/review/${id}`),
+    add: (id: string, data: ProductReview) => request.post<APIResponse<ProductReview>>(`/product/review`, data),
+};
+
 const api = {
     products,
     subscriptions,
     statistic,
+    productReview,
 };
 export default api;
