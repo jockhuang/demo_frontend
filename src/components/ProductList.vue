@@ -23,6 +23,11 @@
           </template>
         </q-input>
       </template>
+      <template v-slot:body-cell-id="bodyProps">
+        <q-td :props="bodyProps">
+          <a :href="'/product/'+bodyProps.value">{{ bodyProps.value }}</a>
+        </q-td>
+      </template>
       <template v-slot:body-cell-isRelease="bodyProps">
         <q-td :props="bodyProps">
           <q-toggle v-model="bodyProps.value" disable/>

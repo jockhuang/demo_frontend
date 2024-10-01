@@ -12,17 +12,10 @@ const router = createRouter({
             path: '/product',
             name: 'Product',
             component: () => import('../views/ProductListView.vue'),
+            children: [
+
+            ]
         },
-        // {
-        //   name: 'product',
-        //   path: '/product/:slug',
-        //   component: () => import('./views/ProductView.vue'),
-        // },
-        // {
-        //   name: 'edit-product',
-        //   path: '/product/:slug/edit',
-        //   component: () => import('./views/EditProductView.vue'),
-        // },
         {
             name: 'AddProduct',
             path: '/product/create',
@@ -34,18 +27,26 @@ const router = createRouter({
             component: () => import('../views/EditProductView.vue'),
         },
         {
+            name: 'ProductDetail',
+            path: '/product/:slug',
+            component: () => import('../views/ProductDetailView.vue'),
+        },
+        {
             path: '/subscriptions',
             name: 'Subscriptions',
             // route level code-splitting
             // this generates a separate chunk (About.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
             component: () => import('../views/MailListView.vue'),
-        },
-        {
-            name: 'AddSubscription',
-            path: '/subscriptions/add',
-            component: () => import('../views/EditSubscription.vue'),
-        },
+            children: [
+                {
+                    name: 'AddSubscription',
+                    path: '/subscriptions/add',
+                    component: () => import('../views/EditSubscription.vue'),
+                }
+            ]
+        }
+
     ]
 })
 
