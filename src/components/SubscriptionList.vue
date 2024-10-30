@@ -1,24 +1,24 @@
 <template>
   <div class="q-pa-md">
     <q-table
-        flat bordered
-        column-sort-order="da"
-        ref="tableRef"
-        title="Subscription List"
-        :rows="apiData.data.items"
+        ref="tableRef" v-model:pagination="pagination"
         :columns="columns"
-        row-key="id"
-        :rows-per-page-options="[5,10,20,50]"
-        v-model:pagination="pagination"
-        :loading="loading"
         :filter="pagination.filter"
         :filter-method="searchData"
+        :loading="loading"
+        :rows="apiData.data.items"
+        :rows-per-page-options="[5,10,20,50]"
+        bordered
+        column-sort-order="da"
+        flat
+        row-key="id"
+        title="Subscription List"
         @request="onRequest"
     >
       <template v-slot:top-right>
-        <q-input borderless dense debounce="200" v-model="pagination.filter" placeholder="Search">
+        <q-input v-model="pagination.filter" borderless debounce="200" dense placeholder="Search">
           <template v-slot:append>
-            <q-icon name="search" />
+            <q-icon name="search"/>
           </template>
         </q-input>
       </template>
@@ -34,8 +34,7 @@
 <script lang="ts" setup>
 import api, {APIResponse, QueryConfig, QueryResult, Subscription} from "@/common/api"
 import {onMounted, reactive, ref, toRefs, watch,} from 'vue'
-import {useRouter} from 'vue-router'
-import {date, Dialog, Notify, QTableColumn, QTableProps, useQuasar} from "quasar";
+import {date, Dialog, Notify, QTableColumn, QTableProps} from "quasar";
 import formatDate = date.formatDate;
 
 const props = defineProps({
@@ -46,11 +45,17 @@ const props = defineProps({
 })
 let {mySize} = toRefs(props)
 const columns: QTableColumn[] = [
-  { name: 'id', required: true, label: 'ID', align: 'left', field: 'id', sortable: true},
-  { name: 'email', align: 'center', label: 'Email', field: 'email', sortable: true },
-  { name: 'description', label: 'Description', field: 'description', sortable: true },
-  { name: 'createDate', label: 'Create Date', field: 'createDate', sortable: true, format: (val, row) =>formatDate(val,'YYYY-MM-DD HH:mm:ss')},
-  { name: 'operations', label: 'Operations', field: ''}
+  {name: 'id', required: true, label: 'ID', align: 'left', field: 'id', sortable: true},
+  {name: 'email', align: 'center', label: 'Email', field: 'email', sortable: true},
+  {name: 'description', label: 'Description', field: 'description', sortable: true},
+  {
+    name: 'createDate',
+    label: 'Create Date',
+    field: 'createDate',
+    sortable: true,
+    format: (val, row) => formatDate(val, 'YYYY-MM-DD HH:mm:ss')
+  },
+  {name: 'operations', label: 'Operations', field: ''}
 
 ]
 const pagination = ref<QTableProps['pagination']>({
@@ -83,7 +88,8 @@ let apiData = reactive<APIResponse<QueryResult<Subscription>>>({
   },
   message: ''
 })
-function onRequest (tableProps: Parameters<NonNullable<QTableProps['onRequest']>>[0]) {
+
+function onRequest(tableProps: Parameters<NonNullable<QTableProps['onRequest']>>[0]) {
   clearTimeout(lastSearch);
   lastSearch = setTimeout(() => {
     queryParams.pageSize = tableProps.pagination.rowsPerPage
@@ -96,6 +102,7 @@ function onRequest (tableProps: Parameters<NonNullable<QTableProps['onRequest']>
   }, 300);
 
 }
+
 function fetchData() {
   loading.value = true
   api.subscriptions.list(queryParams).then(data => {
@@ -122,7 +129,7 @@ function handleDelete(id: string) {
       console.log(response.data)
       if (response.code == 0) {
         Notify.create({
-          message:'Congrats, this mail has been removed!',
+          message: 'Congrats, this mail has been removed!',
           color: 'green',
           position: 'top'
         })
@@ -130,7 +137,7 @@ function handleDelete(id: string) {
         fetchData()
       } else {
         Notify.create({
-          message:response.message,
+          message: response.message,
           color: 'red',
           position: 'top'
         })
@@ -143,7 +150,7 @@ function handleDelete(id: string) {
 
 watch(
     () => {
-      queryParams.pageSize, queryParams.pageIndex , queryParams.isDesc, queryParams.orderBy,queryParams.search
+      queryParams.pageSize, queryParams.pageIndex , queryParams.isDesc, queryParams.orderBy, queryParams.search
     },
     () => {
       fetchData()
@@ -151,7 +158,7 @@ watch(
     {deep: true}
 )
 
-function searchData(rows: any[], terms:any) {
+function searchData(rows: any[], terms: any) {
 
   queryParams.search = terms.search
   lastSearch = setTimeout(() => {

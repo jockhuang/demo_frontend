@@ -1,20 +1,20 @@
 <template>
   <q-header elevated>
     <q-toolbar>
-      <q-btn flat round dense icon="menu" class="q-mr-sm" />
+      <q-btn class="q-mr-sm" dense flat icon="menu" round/>
       <q-avatar>
         <img src="@/assets/logo.svg">
       </q-avatar>
 
       <q-toolbar-title>Demo</q-toolbar-title>
 
-      <q-btn flat round dense icon="whatshot" />
+      <q-btn dense flat icon="whatshot" round/>
     </q-toolbar>
 
-    <q-tabs align="left" v-model="activeLink">
-      <q-route-tab name="Home" label="Home" to="/" exact />
-      <q-route-tab name="Product" label="Product"  to="/product" exact />
-      <q-route-tab name="Subscriptions" label="Subscriptions"  to="/subscriptions" exact />
+    <q-tabs v-model="activeLink" align="left">
+      <q-route-tab exact label="Home" name="Home" to="/"/>
+      <q-route-tab exact label="Product" name="Product" to="/product"/>
+      <q-route-tab exact label="Subscriptions" name="Subscriptions" to="/subscriptions"/>
     </q-tabs>
   </q-header>
 

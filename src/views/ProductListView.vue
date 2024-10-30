@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Product List
-      <q-btn color="primary" label="Add Product" @click="routeToAddProduct" />
+      <q-btn color="primary" label="Add Product" @click="routeToAddProduct"/>
     </h1>
     <ProductList/>
   </div>
