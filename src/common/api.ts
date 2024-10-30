@@ -30,7 +30,7 @@ axios.interceptors.response.use(
 );
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 const request = {
-    get: <T>(url: string, body?:{}) => axios.get<T>(url, body).then(responseBody),
+    get: <T>(url: string, body?: {}) => axios.get<T>(url, body).then(responseBody),
     delete: <T>(url: string, body?: {}) => axios.delete<T>(url, body).then(responseBody),
     post: <T>(url: string, body: {}) =>
         axios.post<T>(url, body).then(responseBody),
@@ -55,11 +55,13 @@ export interface Product {
     updateDate?: string
     reviews?: ProductReview[]
 }
-export interface Statistic{
+
+export interface Statistic {
     releasedProduct: number
     unReleasedProduct: number
     subscription: number
 }
+
 export interface Subscription {
     id?: number
     email: string
@@ -94,7 +96,7 @@ export interface ProductReview {
 }
 
 const products = {
-    list: (data: QueryConfig) => request.get<APIResponse<QueryResult<Product>>>('/product/products', {params:data}),
+    list: (data: QueryConfig) => request.get<APIResponse<QueryResult<Product>>>('/product/products', {params: data}),
     details: (id: string) => request.get<APIResponse<Product>>(`/product/${id}`),
     delete: (id: string) => request.delete<APIResponse<null>>(`/product/${id}`),
     add: (data: Product) => request.post<APIResponse<Product>>('/product', data),
@@ -102,7 +104,7 @@ const products = {
 
 };
 const subscriptions = {
-    list: (data: QueryConfig) => request.get<APIResponse<QueryResult<Subscription>>>('/subscription/subscriptions', {params:data}),
+    list: (data: QueryConfig) => request.get<APIResponse<QueryResult<Subscription>>>('/subscription/subscriptions', {params: data}),
     delete: (id: string) => request.delete<APIResponse<Subscription>>(`/subscription/${id}`),
     add: (data: Subscription) => request.post<APIResponse<Subscription>>('/subscription', data),
 };

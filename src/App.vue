@@ -6,7 +6,7 @@ import Footer from './components/DemoFooter.vue'
 
 <template>
   <div class="q-pa-md">
-    <q-layout view="lHh lpr lFf"  class="shadow-2 rounded-borders">
+    <q-layout class="shadow-2 rounded-borders" view="lHh lpr lFf">
       <Header/>
       <Footer/>
       <q-page-container>

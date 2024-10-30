@@ -15,10 +15,10 @@
 <script lang="ts" setup>
 
 
-
 const index = defineModel('index')
 const mySize = defineModel('mySize')
 const count = defineModel('count')
+
 function handleCurrentChange(goToPage) {
   if (goToPage == index.value) return
   index.value = goToPage

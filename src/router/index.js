@@ -12,9 +12,7 @@ const router = createRouter({
             path: '/product',
             name: 'Product',
             component: () => import('../views/ProductListView.vue'),
-            children: [
-
-            ]
+            children: []
         },
         {
             name: 'AddProduct',
@@ -38,13 +36,12 @@ const router = createRouter({
             // this generates a separate chunk (About.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
             component: () => import('../views/MailListView.vue'),
-            children: [
-                {
-                    name: 'AddSubscription',
-                    path: '/subscriptions/add',
-                    component: () => import('../views/EditSubscription.vue'),
-                }
-            ]
+            children: []
+        },
+        {
+            name: 'AddSubscription',
+            path: '/subscriptions/add',
+            component: () => import('../views/EditSubscription.vue'),
         }
 
     ]
